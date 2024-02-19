@@ -12,6 +12,7 @@
         <div class="card">
             <div class="card-body">
                 {!! Form::model($medic,['route' => ['admin.medics.update', $medic], 'method'=>'put']) !!}
+                @csrf
                 <div class="row mx-auto">
                     <div class="form-group col-sm-12 col-md-6">
                         

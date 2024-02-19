@@ -12,6 +12,7 @@
         <div class="card">
             <div class="card-body">
                 {!! Form::model($receptionist,['route' => ['admin.receptionists.update', $receptionist], 'method'=>'put']) !!}
+                
                 <div class="row mx-auto">
                     <div class="form-group col-sm-12 col-md-6">
                         
