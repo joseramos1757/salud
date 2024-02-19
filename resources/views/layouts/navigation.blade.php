@@ -100,7 +100,10 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('PERFIL') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.home')">
+                    {{ __('ADMINISTRACIÓN') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -110,7 +113,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('CERRAR SESIÓN') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
