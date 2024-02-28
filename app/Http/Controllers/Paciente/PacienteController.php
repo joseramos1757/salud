@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Paciente;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Medico;
 
 
 
@@ -176,5 +177,16 @@ class PacienteController extends Controller
         //
     }
     
+    public function asignarMedico(Request $request)
+    {
+    // Lógica para asignar médico al paciente
+    $pacienteId = $request->input('paciente_id');
+    $medicoId = $request->input('medico_id');
 
+    // Realiza la asignación, por ejemplo, actualiza la base de datos
+    // ...
+
+    // Devuelve una respuesta (puedes ajustar según tus necesidades)
+    return response()->json(['mensaje' => 'Asignación de médico exitosa']);
+    }
 }

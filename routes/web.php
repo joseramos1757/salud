@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Paciente\PacienteController;
+use App\Http\Controllers\ReconsultaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,10 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('pacients',[PacienteController::class,'index'])->name('paciente.home');
 Route::resource('pacients', PacienteController::class)->names('paciente.pacients');
+
+
+Route::get('/reconsulta/{paciente}', [ReconsultaController::class, 'mostrarFormulario'])->name('reconsulta.formulario');
+Route::post('/reconsulta/{paciente}', [ReconsultaController::class, 'guardarReconsulta'])->name('reconsulta.guardar');
 
 require __DIR__.'/auth.php';
 

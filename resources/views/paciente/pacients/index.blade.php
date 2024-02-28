@@ -49,11 +49,12 @@
         <a href="{{ route('paciente.pacients.edit', $paciente) }}" class="inline-block bg-blue-500 px-4 py-2 rounded-md h-6  flex items-center">
           <button class="text-white">EDITAR</button></a>
       </td>
- 
       <td>
-        <a href="{{ route('paciente.pacients.edit', $paciente) }}" class="inline-block bg-green-500 px-4 py-2 rounded-md h-6  flex items-center">
-          <button class="text-white">RECONSULTA</button></a>
-      </td>
+        <a href="{{ route('reconsulta.formulario', $paciente) }}" class="abrir-modal-btn inline-block bg-green-500 px-4 py-2 rounded-md h-6  flex items-center"">
+           <button class="text-white">RECONSULTA</button>
+        </a>
+     </td>
+     
       <!-- Agrega más celdas según sea necesario -->
     </tr>
     @endforeach
@@ -72,4 +73,9 @@ echo "<br>";
 echo "La fecha y hora actual es: " . date('Y-m-d H:i:s');
 ?>  
 
+
+
+
+
 </x-app-layout>
+
