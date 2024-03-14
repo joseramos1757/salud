@@ -56,6 +56,12 @@ class AdministratorController extends Controller
         //sirve para mostrar los objetos que se estan enviando
         //return $request -> all();
         $Administrator = Administrator::create($AdministratorData);
+        session()->flash('swal',[
+            'icon'=>'sucess',
+            'tittle'=>'¡Bien Hecho!',
+            'text'=>'El administrador se creo correctamente',     
+
+        ]);
         return redirect()->route('admin.administrators.edit',$Administrator);
     }
 

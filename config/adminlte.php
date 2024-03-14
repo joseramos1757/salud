@@ -313,7 +313,12 @@ return [
             'route'         => 'register',
             'icon'        => 'fas fa-chart-line',   
         ],
- 
+        [
+            'text' => 'Roles',
+            'route'  => 'admin.roles.index',
+            'icon' => 'fas fa-w fa fa-users',
+        ],
+       
         ['header' => 'TIPOS DE USUARIOS'],
         [
             'text' => 'Administradores',
@@ -330,7 +335,7 @@ return [
             'route'  => 'admin.receptionists.index',
             'icon' => 'fas fa-w fa-id-card',
         ],
-       
+    
     ],
 
     /*
