@@ -36,15 +36,26 @@ class AdministratorController extends Controller
             'ci'=>'required|numeric',
             'nombre'=>'required',
             'paterno'=>'required',
-            'materno'=>'',
-            'celular'=>'required',
+            'materno'=>'nullable',
+            'celular'=> ['required','numeric','between:60000000,79999999'],
             'fechanac'=>'required',
-            'user_id'=>'required | unique:administrators',
+            'direccion'=>'required',
+            'user_id'=>'required | unique:medicos',
 
         ]);
+        $AdministratorData=[
+            'ci'=>$request->input('ci'),
+            'nombre'=>strtoupper($request->input('nombre')),
+            'paterno'=>strtoupper($request->input('paterno')),
+            'materno'=>strtoupper($request->input('materno')),
+            'celular'=>$request->input('celular'),
+            'fechanac'=>$request->input('fechanac'),
+            'direccion'=>strtoupper($request->input('direccion')),
+            'user_id'=>$request->input('user_id'),
+        ];
         //sirve para mostrar los objetos que se estan enviando
         //return $request -> all();
-        $Administrator = Administrator::create($request->all());
+        $Administrator = Administrator::create($AdministratorData);
         return redirect()->route('admin.administrators.edit',$Administrator);
     }
 
@@ -74,14 +85,23 @@ class AdministratorController extends Controller
             'ci'=>'required|numeric',
             'nombre'=>'required',
             'paterno'=>'required',
-            'materno'=>'',
-            'celular'=>'required',
+            'materno'=>'nullable',
+            'celular'=> ['required','numeric','between:60000000,79999999'],
             'fechanac'=>'required',
-
+            'direccion'=>'required',
         ]);
+        $AdministratorData=[
+            'ci'=>$request->input('ci'),
+            'nombre'=>strtoupper($request->input('nombre')),
+            'paterno'=>strtoupper($request->input('paterno')),
+            'materno'=>strtoupper($request->input('materno')),
+            'celular'=>$request->input('celular'),
+            'fechanac'=>$request->input('fechanac'),
+            'direccion'=>strtoupper($request->input('direccion')),
+        ];
         //sirve para mostrar los objetos que se estan enviando
         //return $request -> all();
-        $administrator -> update($request->all());
+        $administrator -> update($AdministratorData);
         return redirect()->route('admin.administrators.edit',$administrator);
    
     }

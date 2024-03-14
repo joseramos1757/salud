@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Medico;
 use App\Models\User;
+use App\Models\Especialidad;
+use RealRashid\SweetAlert\Facades\Alert;
 class MedicController extends Controller
 {
     /**
@@ -22,8 +24,10 @@ class MedicController extends Controller
      */
     public function create()
     {
-        $users = User::orderBy('id', 'desc')->pluck('name','id');  
-        return view('admin.medico.create',compact('users'));
+        $users = User::orderBy('id', 'desc')->pluck('name', 'id');
+        $especialidades = Especialidad::all();
+    
+        return view('admin.medico.create', compact('users', 'especialidades'));
     }
 
     /**
@@ -31,20 +35,41 @@ class MedicController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request-> validate([
             'ci'=>'required|numeric',
             'nombre'=>'required',
             'paterno'=>'required',
-            'materno'=>'',
-            'celular'=>'required',
+            'materno'=>'nullable',
+            'celular'=> ['required','numeric','between:60000000,79999999'],
             'especialidad'=>'required',
             'fechanac'=>'required',
+            'direccion'=>'required',
             'user_id'=>'required | unique:medicos',
         ]);
+
+        $medicData=[
+            'ci'=>$request->input('ci'),
+            'nombre'=>strtoupper($request->input('nombre')),
+            'paterno'=>strtoupper($request->input('paterno')),
+            'materno'=>strtoupper($request->input('materno')),
+            'celular'=>$request->input('celular'),
+            'especialidad'=> $request->input('especialidad'),
+            'fechanac'=>$request->input('fechanac'),
+            'direccion'=>strtoupper($request->input('direccion')),
+            'user_id'=>$request->input('user_id'),
+        ];
         //sirve para mostrar los objetos que se estan enviando
         //return $request -> all();
-        $medic = Medico::create($request->all());
-        return redirect()->route('admin.medics.edit',$medic);
+        $medic = Medico::create($medicData);
+  
+            // Asociar la especialidad seleccionada
+    $especialidadId = $request->input('especialidad');
+    $medic->especialidads()->attach($especialidadId);
+    $especialidadId = $request->input('especialidad');
+               // Mostrar SweetAlert success después de crear el paciente
+               Alert::success('Éxito', 'Paciente registrado correctamente');
+        return redirect()->route('admin.medics.edit',$medic)->with('success', 'Médico registrado correctamente');
     }
 
     /**
@@ -60,25 +85,47 @@ class MedicController extends Controller
      */
     public function edit(Medico $medic)
     {
-        return view('admin.medico.edit',compact('medic'));
+        $especialidades = Especialidad::all();
+        return view('admin.medico.edit', compact('medic', 'especialidades'));
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Medico $medic)
     {
-        $request-> validate([
-            'ci'=>'required|numeric',
-            'nombre'=>'required',
-            'paterno'=>'required',
-            'materno'=>'',
-            'celular'=>'required',
-            'especialidad'=>'required',
-            'fechanac'=>'required'
+        $request->validate([
+            'ci' => 'required|numeric',
+            'nombre' => 'required',
+            'paterno' => 'required',
+            'materno' => 'nullable',
+            'celular' => ['required', 'numeric', 'between:60000000,79999999'],
+            'especialidad' => 'required',
+            'fechanac' => 'required',
+            'direccion' => 'required',
         ]);
-        $medic -> update($request->all());
-        return redirect()->route('admin.medics.index',$medic);
+
+        $medicData=[
+            'ci'=>$request->input('ci'),
+            'nombre'=>strtoupper($request->input('nombre')),
+            'paterno'=>strtoupper($request->input('paterno')),
+            'materno'=>strtoupper($request->input('materno')),
+            'celular'=>$request->input('celular'),
+            'especialidad'=> $request->input('especialidad'),
+            'fechanac'=>$request->input('fechanac'),
+            'direccion'=>strtoupper($request->input('direccion')),
+        ];
+        //sirve para mostrar los objetos que se estan enviando
+        //return $request -> all();
+        $medic ->update($medicData);
+        $especialidadId = $request->input('especialidad');
+        $medic->especialidads()->attach($especialidadId);
+        $especialidadId = $request->input('especialidad');
+
+                 // Mostrar SweetAlert success después de crear el paciente
+                 Alert::success('Éxito', 'Paciente actualizado correctamente');
+        return redirect()->route('admin.medics.index');
    
 
     }
@@ -86,9 +133,22 @@ class MedicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Medico $medic)
     {
-        //
+            // Eliminar el médico
+    $medic->delete();
+
+    // Redireccionar a la lista de médicos con un mensaje de éxito
+    return redirect()->route('admin.medics.index');
+    }
+    public function guardarEspecialidad(Request $request, $idMedico)
+    {
+        $medico = Medico::find($idMedico);
+        $especialidadId = $request->input('especialidad');
+    
+        $medico->especialidades()->attach($especialidadId);
+
+    // Resto de la lógica
     }
     public function obtenerMedicos()
     {

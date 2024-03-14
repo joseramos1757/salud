@@ -36,15 +36,26 @@ class RecepcionistaController extends Controller
             'ci'=>'required|numeric',
             'nombre'=>'required',
             'paterno'=>'required',
-            'materno'=>'',
-            'celular'=>'required',
+            'materno'=>'nullable',
+            'celular'=> ['required','numeric','between:60000000,79999999'],
             'fechanac'=>'required',
-            'user_id'=>'required | unique:administrators',
+            'direccion'=>'required',
+            'user_id'=>'required | unique:medicos',
 
         ]);
+        $RecepcionistData=[
+            'ci'=>$request->input('ci'),
+            'nombre'=>strtoupper($request->input('nombre')),
+            'paterno'=>strtoupper($request->input('paterno')),
+            'materno'=>strtoupper($request->input('materno')),
+            'celular'=>$request->input('celular'),
+            'fechanac'=>$request->input('fechanac'),
+            'direccion'=>strtoupper($request->input('direccion')),
+            'user_id'=>$request->input('user_id'),
+        ];
         //sirve para mostrar los objetos que se estan enviando
         //return $request -> all();
-        $Receptionist = Recepcionista::create($request->all());
+        $Receptionist = Recepcionista::create($RecepcionistData);
         return redirect()->route('admin.receptionists.edit',$Receptionist);
     }
 
@@ -73,22 +84,36 @@ class RecepcionistaController extends Controller
             'ci'=>'required|numeric',
             'nombre'=>'required',
             'paterno'=>'required',
-            'materno'=>'',
-            'celular'=>'required',
+            'materno'=>'nullable',
+            'celular'=> ['required','numeric','between:60000000,79999999'],
             'fechanac'=>'required',
+            'direccion'=>'required',
 
         ]);
+        $RecepcionistData=[
+            'ci'=>$request->input('ci'),
+            'nombre'=>strtoupper($request->input('nombre')),
+            'paterno'=>strtoupper($request->input('paterno')),
+            'materno'=>strtoupper($request->input('materno')),
+            'celular'=>$request->input('celular'),
+            'fechanac'=>$request->input('fechanac'),
+            'direccion'=>strtoupper($request->input('direccion')),
+        ];
         //sirve para mostrar los objetos que se estan enviando
         //return $request -> all();
-        $receptionist -> update($request->all());
+        $receptionist -> update($RecepcionistData);
         return redirect()->route('admin.receptionists.edit',$receptionist);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Recepcionista $receptionist)
     {
-        //
+            // Eliminar el médico
+    $receptionist->delete();
+
+    // Redireccionar a la lista de médicos con un mensaje de éxito
+    return redirect()->route('admin.receptionists.index');
     }
 }

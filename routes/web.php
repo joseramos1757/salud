@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Paciente\PacienteController;
 use App\Http\Controllers\ReconsultaController;
+use App\Http\Controllers\Admin\MedicController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +35,7 @@ Route::resource('pacients', PacienteController::class)->names('paciente.pacients
 
 Route::get('/reconsulta/{paciente}', [ReconsultaController::class, 'mostrarFormulario'])->name('reconsulta.formulario');
 Route::post('/reconsulta/{paciente}', [ReconsultaController::class, 'guardarReconsulta'])->name('reconsulta.guardar');
-
+Route::post('/medicos/{idMedico}/guardar-especialidad', [MedicController::class, 'guardarEspecialidad']);
+Route::get('/obtener-medicos/{especialidad}', [ReconsultaController::class, 'obtenerMedicos'])->name('obtener-medicos');
 require __DIR__.'/auth.php';
 

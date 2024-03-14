@@ -57,11 +57,9 @@
                 @enderror
                 </div> 
                 <div class="form-group col-sm-12 col-md-6">
-                    {{Form::label('especialidad', 'ESPECIALIDAD')}}
-                    {{Form::select('especialidad', ['' => 'SELECCIONE UNA OPCIÓN', 'MEDICO GENERAL' => 'MEDICO GENERAL', 'GINECOLOGO' => 'GINECOLOGO', 'CARDIOLOGO' => 'CARDIOLOGO', 'ECOGRAFO' => 'ECOGRAFO'], null, ['class' => 'form-control'])}}
-              
-                  </div>
-         
+                    {{ Form::label('especialidad', 'ESPECIALIDAD') }}
+                    {{ Form::select('especialidad', ['' => 'SELECCIONE UNA OPCIÓN'] + $especialidades->pluck('nombre', 'id')->toArray(), null, ['class' => 'form-control']) }}
+                </div>
             <!-- Campos del usuario -->
             <div class="form-group col-sm-12 col-md-6">
                     {{ Form::label('user_id', 'NOMBRE DEL USUARIO') }}

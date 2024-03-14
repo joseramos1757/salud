@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Medico extends Model
 {
     use HasFactory;
-    protected $fillable=['ci','nombre','paterno','materno','especialidad','celular','fechanac','direccion','user_id'];
+    protected $fillable=['ci','nombre','paterno','materno','celular','fechanac','direccion','user_id'];
 
     public function user(){
         return $this->belongsTo('App\Models\User');
@@ -19,4 +19,8 @@ class Medico extends Model
     public function pacientes(){
         return $this->belongsToMany('App\Models\Paciente');
     }
+    public function especialidads(){
+        return $this->belongsToMany('App\Models\Especialidad');
+    }
 }
+

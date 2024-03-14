@@ -20,8 +20,9 @@
                 <th>NOMBRE</th>
                 <th>PATERNO</th>
                 <th>MATERNO</th>
-                <th>ESPECIALIDAD</th>
                 <th>CELULAR</th>
+                <th>ESPECIALIDAD</th>
+           
                 {{--<th class="text-sm">FECHA DE NAC</th>--}}
                 <th>USUARIO</th>
                 <th>CORREO ELECTRONICO</th>
@@ -37,8 +38,11 @@
                         <td>{{$medico->paterno}}</td>
                         <td>{{$medico->materno}}</td>
                         <td>{{$medico->celular}}</td>
-                        <td>{{$medico->especialidad}}</td>
-
+                        @if($medico->especialidads->isNotEmpty())
+                        <td>{{$medico->especialidads->first()->nombre}}</td>
+                    @else
+                        <td>N/A</td>
+                    @endif
                         {{--<td>{{$administrator->fechanac}}</td>--}}
                         <td>{{$medico->user->name}}</td>
                         <td>{{$medico->user->email}}</td>

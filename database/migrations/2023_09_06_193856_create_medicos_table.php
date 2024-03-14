@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('nombre',45);
             $table->string('paterno',45);
             $table->string('materno',45)->nullable();
-            $table->string('especialidad',75);
             $table->integer('celular');
             $table->date('fechanac');
             $table->string('direccion',150);
