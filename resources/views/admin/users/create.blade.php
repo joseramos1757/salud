@@ -4,7 +4,7 @@
 
 
 @section('content_header')
-    <h1>edit DE LOS USUARIOS</h1>
+    <h1>REGISTRO DE USUARIOS</h1>
 @stop
 
 @section('content')
@@ -28,8 +28,18 @@
                 
                 {!! Form::label('password-confirmation','CONFIRMAR CONTRASEÑA') !!}
                 {!! Form::text('password-confirmation', null, ['class'=>'form-control']) !!}
+                {!! Form::label('roles','SELECCIONE EL ROL DEL USUARUIO:') !!}
+                <br>
+                <ul>
+                    
+                    @foreach($roles as $rol)
+                    <li>
+                        {!! Form::checkbox('roles[]', $rol->id, false, ['id' => 'roles_'.$rol->id]) !!}
+                        {!! Form::label('roles_'.$rol->id, $rol->name) !!}
+                    </li>
+                @endforeach
                 
-                
+                </ul>
             
                 <br>
                 {{ Form::submit('REGISTRAR USUARIO', ['class' => 'btn btn-primary']) }}
