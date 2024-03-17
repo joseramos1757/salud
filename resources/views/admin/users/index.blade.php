@@ -4,17 +4,16 @@
 
 
 @section('content_header')
-    <h1>ROLES DE LOS USUARIOS</h1>
+    <h1>PERMISOS DE LOS USUARIOS</h1>
 @stop
 
 @section('content')
 
 <div class="card">
     <div class="card-header">
-        <a href="{{route('admin.roles.create')}}" class="btn btn-primary">AGREGAR ROLES</a>
+        <a href="{{route('admin.users.create')}}" class="btn btn-primary">AGREGAR PERMISOS</a>
     </div>
 </div>
-
 
         <div class="card">
           
@@ -23,21 +22,23 @@
                     <thead class="text-center">
                         <tr>
                             <th>#</th> <!-- Agregamos una columna para la numeración -->
-                            <th>NOMBRE</th>
+                            <th>NOMBRE DE USUARIO</th>
+                            <th>EMAIL</th>
                             <th colspan="2">OPCIONES</th>
                         </tr>
 
                         </thead>
                         <tbody>
-                            @foreach ($roles as $key=>$rol)
+                            @foreach ($users as $key=>$user)
                                 <tr>
                                     <td>{{ $key + 1 }}</td> <!-- Utilizamos la variable $key para la numeración -->
-                                    <td>{{$rol->name}}</td>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
                         
-                                    <td width="10px"><a href="{{route('admin.roles.edit',$rol)}}" class="btn btn-primary btn-sm">EDITAR</a>
+                                    <td width="10px"><a href="{{route('admin.users.edit',$user)}}" class="btn btn-primary btn-sm">EDITAR</a>
                                     </td>
                                     <td width="10px">
-                                        <form action="{{route('admin.roles.destroy',$rol)}}" method="POST">
+                                        <form action="{{route('admin.users.destroy',$user)}}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>

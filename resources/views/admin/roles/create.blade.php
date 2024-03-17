@@ -17,6 +17,16 @@
                 
                 {!! Form::label('name','INGRESE EL ROL') !!}
                 {!! Form::text('name', null, ['class'=>'form-control','placeholder'=>'INGRESE EL ROL']) !!}
+                <br>
+                <ul class="checkbox-list">
+                    @foreach($permissions as $permission)
+                    <li>
+                        {!! Form::checkbox('permissions[]', $permission->id, null, ['id' => 'permission_'.$permission->id]) !!}
+                        {!! Form::label('permission_'.$permission->id, $permission->name) !!}
+                    </li>
+                    @endforeach
+                </ul>
+
             
                 <br>
                 {{ Form::submit('CREAR ROL', ['class' => 'btn btn-primary']) }}

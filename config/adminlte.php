@@ -318,7 +318,19 @@ return [
             'route'  => 'admin.roles.index',
             'icon' => 'fas fa-w fa fa-users',
         ],
-       
+
+        [
+            'text' => 'Permisos',
+            'route'  => 'admin.permissions.index',
+            'icon' => 'fas fa-w fa fa-key',
+        ],
+
+        [
+            'text' => 'Usuarios',
+            'route'  => 'admin.users.index',
+            'icon' => 'fas fa-w fa fa-user',
+        ],
+
         ['header' => 'TIPOS DE USUARIOS'],
         [
             'text' => 'Administradores',

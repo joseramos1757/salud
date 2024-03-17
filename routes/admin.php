@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\MedicController;
 use App\Http\Controllers\Admin\RecepcionistaController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\UserController;
 
 //la ruta se simplifica por que se le llamara atravez del controlador
 Route::get('',[HomeController::class,'index'])->name('admin.home');
@@ -14,3 +16,5 @@ Route::resource('medics', MedicController::class)->names('admin.medics');
 Route::resource('receptionists', RecepcionistaController::class)->names('admin.receptionists');
 //nuevo codigo para roles   
 Route::resource('roles', RoleController::class)->names('admin.roles');
+Route::resource('permissions', PermissionController::class)->names('admin.permissions');
+Route::resource('users', UserController::class)->names('admin.users');
