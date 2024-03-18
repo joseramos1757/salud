@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::get('pacients',[PacienteController::class,'index'])->name('paciente.home');
-Route::resource('pacients', PacienteController::class)->names('paciente.pacients');
+Route::resource('pacients', PacienteController::class)->names('paciente.pacients')->middleware(['can:ACCESO A PACIENTES']);
 
 
 Route::get('/reconsulta/{paciente}', [ReconsultaController::class, 'mostrarFormulario'])->name('reconsulta.formulario');

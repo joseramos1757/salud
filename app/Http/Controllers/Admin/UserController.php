@@ -35,8 +35,10 @@ class UserController extends Controller
             'email' => 'required', 
             'password'=>'required'
         ]);
-    
+        
+     
         $user = User::create($request->all());
+        $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.users.edit', $user);
     }
@@ -48,6 +50,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+  
         $roles = Role::all();
         return view('admin.users.edit',compact('user','roles'));
     }
@@ -57,8 +60,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'unique:users,name,'.$user->id], // Exclude current user's name
+            'email' => 'required|email', // Fixing the typo and adding email validation
+        ]);
+        
+        $user->update($request->all());
+        $user->roles()->sync($request->roles);
+    
+        return redirect()->route('admin.users.edit', $user);
     }
+    
 
     /**
      * Remove the specified resource from storage.

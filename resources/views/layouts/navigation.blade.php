@@ -14,7 +14,9 @@
                         <div class="hidden sm:ml-6 sm:block mt-2">
                           <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                            @can('ACCESO A PACIENTES')
                             <a href="{{route('paciente.pacients.index')}}" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold ">PACIENTES</a>
+                            @endcan
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">ANAMNESIS</a>
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">HISTORIAL CLÍNICO</a>
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">REPORTES EPIDEMIOLÓGICOS</a>
@@ -46,9 +48,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('PERFIL') }}
                         </x-dropdown-link>
+                        @can('ACCESO A PACIENTES')
                         <x-dropdown-link :href="route('admin.home')">
                             {{ __('ADMINISTRACIÓN') }}
                         </x-dropdown-link>
+                        @endcan
                         <x-dropdown-link :href="route('register')">
                             {{ __('REGISTRAR') }}
                         </x-dropdown-link>
