@@ -17,10 +17,16 @@
                             @can('ACCESO A PACIENTES')
                             <a href="{{route('paciente.pacients.index')}}" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold ">PACIENTES</a>
                             @endcan
+                            @can('ACCESO A ANAMNESIS')
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">ANAMNESIS</a>
+                            @endcan
+                            @can('ACCESO A HISTORIAL CLINICO')
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">HISTORIAL CLÍNICO</a>
+                            @endcan
+                            @can('ACCESO A REPORTES EPIDEMIOLOGICOS')
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">REPORTES EPIDEMIOLÓGICOS</a>
-                          </div>
+                            @endcan
+                        </div>
                         </div>
             
                       </div>    
@@ -48,14 +54,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('PERFIL') }}
                         </x-dropdown-link>
-                        @can('ACCESO A PACIENTES')
+                        @can('ACCESO A ADMINISTRACION')
                         <x-dropdown-link :href="route('admin.home')">
                             {{ __('ADMINISTRACIÓN') }}
                         </x-dropdown-link>
                         @endcan
-                        <x-dropdown-link :href="route('register')">
-                            {{ __('REGISTRAR') }}
-                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
