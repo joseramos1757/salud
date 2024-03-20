@@ -18,7 +18,7 @@
         <!-- Agrega esto en el head de tu HTML -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-400">

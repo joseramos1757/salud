@@ -6,8 +6,12 @@ use Livewire\Component;
 use App\Models\Paciente;
 use JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter;
 use Carbon\Carbon;
+//para la paginacion
+use Livewire\WithPagination;
 class ShowPacients extends Component
 {
+    //para la paginacion
+    use WithPagination;
     public $ci;
     public $nombre;
     public $paterno;
@@ -21,13 +25,16 @@ class ShowPacients extends Component
     public $observaciones;
 
     public $title;
-    public $search='hola mundo san juan s'; 
+    public $search; 
+    public $cant=10;
     public function crearPaciente(){
-          // Convierte la fecha de nacimiento a un objeto Carbon
-          $fechaNacimiento = Carbon::createFromFormat('Y-m-d', $this->fechanac);
-        
-          // Calcula la edad
-          $edad = $fechaNacimiento->diffInYears(Carbon::now());
+        $this->clean();
+       // Convierte la fecha de nacimiento a un objeto Carbon
+    $fechaNacimiento = Carbon::createFromFormat('Y-m-d', $this->fechanac);
+
+    // Calcula la edad
+    $edad = $fechaNacimiento->diffInYears(Carbon::now());
+
   
           $this-> validate([
             'ci'=>'required|unique:pacientes|numeric',
@@ -60,12 +67,16 @@ class ShowPacients extends Component
        ]);
 
      //MENSAJE DE GUARDADO  
-session()->flash('msg', 'El paciente ' . $this->nombre . ' ' . $this->paterno . ' ha sido registrado correctamente');
+        session()->flash('msg', 'EL PACIENTE ' . $this->nombre . ' ' . $this->paterno . ' HA SIDO REGISTRADO');
+        //$this->clean();
     }       
     public function render()
     {
         
-        $pacient=Paciente::all()->reverse();
+        $pacient = Paciente::where('nombre','like','%'.$this->search.'%')
+                    ->orWhere('ci', 'like', '%' . $this->search . '%')
+                    ->orderBy('id', 'desc')
+                    ->paginate($this->cant);
         $pacientCount=Paciente::count();
         //$pacient = Paciente::where('nombre','like','%'.$this->search.'%')->get();
        // $pacient = Paciente::where('ci', 'like', '%' . $this->search . '%')
@@ -79,4 +90,10 @@ session()->flash('msg', 'El paciente ' . $this->nombre . ' ' . $this->paterno . 
             'pacientCount'=>$pacientCount
         ]);
     }
+
+        // Metodo encargado de la limpieza
+        public function clean(){
+           $this->reset(['ci','nombre','paterno','materno','direccion','celular','estadocivil','sexo','ocupacion','observaciones','search']);
+           $this->resetErrorBag();
+        }
 }

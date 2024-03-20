@@ -1,21 +1,84 @@
 <div>
-   <h1>hola mundo </h1>
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1>{{$title}}({{$pacientCount}})</h1>
-        {{$search}}
-     
+   
+    <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS">
+    <x-table>
+        <x-slot:thead>
+                <th scope="col" class="px-6 py-3">
+                    CARNET
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    NOMBRE(S)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    APELLIDO PATERNO
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    APELLIDO MATERNO
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    SEXO
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    CELULAR
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    EDAD
+                </th>
+                <th scope="col" class="px-6 py-3" colspan="2">
+                    OPCIONES
+                </th>
+         </x-slot>
+         @foreach ($pacient as $paciente)
+         <tr class="bg-white border-b dark:bg-gray-900 dark:border-black">
+             <td class="px-6 py-4">
+                 {{ $paciente->ci }}
+             </td>
+             <td class="px-6 py-4">
+                 {{ $paciente->nombre }}
+             </td>
+             <td class="px-6 py-4">
+                 {{ $paciente->paterno }}
+             </td>
+             <td class="px-6 py-4">
+                 {{ $paciente->materno }}
+             </td>
+             <td class="px-6 py-4">
+                 {{ $paciente->sexo }}
+             </td>
+             <td class="px-6 py-4">
+                 {{ $paciente->celular }}
+             </td>
+             <td class="px-6 py-4">
+                 {{ $paciente->edad }}
+             </td>
+             <td>
+                <a href="#" wire:click='edit({{$paciente->id}})' class="inline-block bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-600" title="Editar">
+                    <i class="far fa-edit"></i>
+                </a>
+            </td>
+            <td>
+                <a wire:click="$dispatch('delete',{id: {{$paciente->id}}, eventName:'destroyPacient'})" class="inline-block bg-red-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-red-600" title="Eliminar">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </td>
+         </tr>
+     @endforeach
+    </x-table>
+    {{$pacient->links()}}
+    </x-card>
+
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         @if(session('msg'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
             <span class="block sm:inline">{{ session('msg') }}</span>
         </div>
         @endif
 
-        <br>
-        <input wire:model.live="search" type="text">
-     <br>
+
         <!-- Formulario -->
 
-        <div class="container ml-auto mr-auto flex mt-6">
+        <div class="container ml-auto mr-auto flex mt-2">
             <div class="w-full md:w-full">
         
                 <!-- Formulario -->
@@ -128,11 +191,26 @@
         </div>
     
         <div class="px-6 py-4">
-            <input type="text" wire:model="search">
-
-            <table class="w-full text-sm text-left rtl:text-right text-gray-900 dark:text-gray-900">
+            <div class="mt-2 mb-6 font-semibold text-3xl text-gray-800 leading-tight w-full justify-center">
+                <center>
+                    <h1>LISTA DE PACIENTES REGISTRADOS</h1>
+                </center>
+            </div>
+            <div class="flex">
+            <select wire:model.live='numberRows'>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            
+            <input type="text" class="w-full mt-1 p-2 border rounded-md uppercase-input" placeholder="Buscar......" wire:model.live="search"> 
+            <br>
+            <h1>{{$title}}({{$pacientCount}})</h1>
+            </div>
+            <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black border border-gray-200 dark:border-black">
                 <thead
-                    class="text-xs text-gray-900 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-600">
+                    class="text-xs text-white uppercase bg-gray-500 dark:bg-gray-900 dark:text-gray-600">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             CARNET
@@ -155,14 +233,14 @@
                         <th scope="col" class="px-6 py-3">
                             EDAD
                         </th>
-                        <th scope="col" class="px-6 py-3 col-span-2">
+                        <th scope="col" class="px-6 py-3" colspan="2">
                             OPCIONES
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($pacient as $paciente)
-                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-black">
                             <td class="px-6 py-4">
                                 {{ $paciente->ci }}
                             </td>
@@ -184,17 +262,38 @@
                             <td class="px-6 py-4">
                                 {{ $paciente->edad }}
                             </td>
-                            <td class="px-6 py-4">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <td>
+                                <a href="#" wire:click='edit({{$paciente->id}})' class="inline-block bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-600" title="Editar">
+                                    <i class="far fa-edit"></i>
+                                </a>
                             </td>
-                            <td class="px-6 py-4">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <td>
+                                <a wire:click="$dispatch('delete',{id: {{$paciente->id}}, eventName:'destroyPacient'})" class="inline-block bg-red-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-red-600" title="Eliminar">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
                             </td>
+                            
                         </tr>
                     @endforeach
 
                 </tbody>
             </table>
+            {{$pacient->links()}}
         </div>
+
+           <!-- Agrega esto al final de tu vista, después del formulario -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén todos los elementos de entrada de texto por su clase
+            var inputElements = document.querySelectorAll('.uppercase-input');
+
+            // Agrega un evento de escucha para cada elemento de entrada de texto
+            inputElements.forEach(function(input) {
+                // Escucha el evento de cambio en el campo de entrada
+                input.addEventListener('input', function() {
+                    // Convierte el valor a mayúsculas y actualiza el valor del campo
+                    this.value = this.value.toUpperCase();
+                });
+            });
+        });
+    </script>
