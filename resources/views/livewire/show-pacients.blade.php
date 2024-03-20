@@ -1,7 +1,9 @@
 <div>
-   
-    <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS">
-    <x-table>
+    <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS"> 
+        <x-slot:cardTools>
+        <a href="" class=" bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-md-right" >PACIENTE NUEVO</a>
+        </x-slot:cardTools>
+        <x-table>
         <x-slot:thead>
                 <th scope="col" class="px-6 py-3">
                     CARNET
@@ -24,7 +26,7 @@
                 <th scope="col" class="px-6 py-3">
                     EDAD
                 </th>
-                <th scope="col" class="px-6 py-3" colspan="2">
+                <th scope="col" class="px-6 py-3" colspan="3">
                     OPCIONES
                 </th>
          </x-slot>
@@ -51,6 +53,11 @@
              <td class="px-6 py-4">
                  {{ $paciente->edad }}
              </td>
+             <td>
+                <a href="#" wire:click='edit({{$paciente->id}})' class="inline-block bg-green-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-600" title="Editar">
+                    <i class="fa fa-notes-medical"></i>
+                </a>
+            </td>
              <td>
                 <a href="#" wire:click='edit({{$paciente->id}})' class="inline-block bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-600" title="Editar">
                     <i class="far fa-edit"></i>
@@ -189,97 +196,9 @@
         
             </div>
         </div>
-    
-        <div class="px-6 py-4">
-            <div class="mt-2 mb-6 font-semibold text-3xl text-gray-800 leading-tight w-full justify-center">
-                <center>
-                    <h1>LISTA DE PACIENTES REGISTRADOS</h1>
-                </center>
-            </div>
-            <div class="flex">
-            <select wire:model.live='numberRows'>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            
-            <input type="text" class="w-full mt-1 p-2 border rounded-md uppercase-input" placeholder="Buscar......" wire:model.live="search"> 
-            <br>
-            <h1>{{$title}}({{$pacientCount}})</h1>
-            </div>
-            <table class="w-full text-sm text-left rtl:text-right text-black dark:text-black border border-gray-200 dark:border-black">
-                <thead
-                    class="text-xs text-white uppercase bg-gray-500 dark:bg-gray-900 dark:text-gray-600">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            CARNET
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            NOMBRE(S)
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            APELLIDO PATERNO
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            APELLIDO MATERNO
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            SEXO
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            CELULAR
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            EDAD
-                        </th>
-                        <th scope="col" class="px-6 py-3" colspan="2">
-                            OPCIONES
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pacient as $paciente)
-                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-black">
-                            <td class="px-6 py-4">
-                                {{ $paciente->ci }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $paciente->nombre }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $paciente->paterno }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $paciente->materno }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $paciente->sexo }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $paciente->celular }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $paciente->edad }}
-                            </td>
-                            <td>
-                                <a href="#" wire:click='edit({{$paciente->id}})' class="inline-block bg-blue-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-blue-600" title="Editar">
-                                    <i class="far fa-edit"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a wire:click="$dispatch('delete',{id: {{$paciente->id}}, eventName:'destroyPacient'})" class="inline-block bg-red-500 text-white px-3 py-1 rounded-sm text-sm hover:bg-red-600" title="Eliminar">
-                                    <i class="far fa-trash-alt"></i>
-                                </a>
-                            </td>
-                            
-                        </tr>
-                    @endforeach
+    </div>
+</div>
 
-                </tbody>
-            </table>
-            {{$pacient->links()}}
-        </div>
 
            <!-- Agrega esto al final de tu vista, después del formulario -->
     <script>

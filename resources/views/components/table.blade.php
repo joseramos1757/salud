@@ -1,5 +1,5 @@
-<div class="mb-3 flex justify-between">
-    <div>
+<div class=" container flex justify-between">
+    <div class="mt-4">
         <span>Mostrar</span>
         <select wire:model.live='cant' class="ml-2 border border-gray-300 rounded px-2 py-1 w-32">
             <option value="5">5</option>
@@ -8,7 +8,6 @@
             <option value="50">50</option>
             <option value="100">100</option>
         </select>
-        <span class="ml-2">Entradas</span>
     </div>
     <div class="flex items-center justify-between">
         <div wire:loading wire:target='search' class="animate-spin text-blue-500 mr-2">
@@ -20,8 +19,8 @@
     </div>
 </div>
 <div class="overflow-x-auto">
-    <table class="table-auto min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
+    <table class="table-auto mt-5 min-w-full divide-y divide-gray-200 ">
+        <thead class="bg-blue-700 text-gray-50">
             <tr>
                 {{$thead}}
             </tr>

@@ -1,8 +1,8 @@
 @props(['cardTitle'=>'','cardTools'=>'','cardFooter'=>''])
-<div class="bg-white rounded-lg shadow-lg">
-    <div class="px-6 py-4 mt-4">
-        <h3 class="text-lg font-semibold"><b>{{$cardTitle}}</b></h3>
-        <div class="flex items-center mt-2">
+<div class="container mx-auto bg-white rounded-2xl shadow-lg ">
+    <div class="flex items-center justify-between px-6 py-4 mt-4 -mb-8 ">
+        <h3 class="text-3xl font-semibold"><b>{{$cardTitle}}</b></h3>
+        <div class="flex items-center mt-2 ml-auto">
             {{$cardTools}}
         </div>
     </div>

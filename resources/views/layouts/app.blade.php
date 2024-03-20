@@ -21,7 +21,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-400">
+        <div class="min-h-screen bg-gray-200">
             @include('sweetalert::alert')
 
             @include('layouts.navigation')

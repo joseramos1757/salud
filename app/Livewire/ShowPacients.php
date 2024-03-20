@@ -26,9 +26,9 @@ class ShowPacients extends Component
 
     public $title;
     public $search; 
-    public $cant=10;
+    public $cant=5;
     public function crearPaciente(){
-        $this->clean();
+        //$this->clean();
        // Convierte la fecha de nacimiento a un objeto Carbon
     $fechaNacimiento = Carbon::createFromFormat('Y-m-d', $this->fechanac);
 
@@ -92,8 +92,8 @@ class ShowPacients extends Component
     }
 
         // Metodo encargado de la limpieza
-        public function clean(){
-           $this->reset(['ci','nombre','paterno','materno','direccion','celular','estadocivil','sexo','ocupacion','observaciones','search']);
-           $this->resetErrorBag();
-        }
+        //public function clean(){
+         //  $this->reset(['ci','nombre','paterno','materno','direccion','celular','estadocivil','sexo','ocupacion','observaciones','search']);
+         //  $this->resetErrorBag();
+       // }
 }
