@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Paciente\PacienteController;
 use App\Http\Controllers\ReconsultaController;
 use App\Http\Controllers\Admin\MedicController;
+use App\Livewire\ShowPacients;
+use Livewire\Livewire;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Livewire::component('show-pacients', ShowPacients::class);
 });
+
 Route::get('pacients',[PacienteController::class,'index'])->name('paciente.home');
 Route::resource('pacients', PacienteController::class)->names('paciente.pacients')->middleware(['can:ACCESO A PACIENTES']);
 

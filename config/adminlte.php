@@ -309,10 +309,11 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'PANEL DE CONTROL',
+            'text'        => 'VOLVER AL SISTEMA',
             'route'         => 'register',
             'icon'        => 'fas fa-chart-line',   
         ],
+        ['header' => 'MODULO DE USUARIOS'],
         [
             'text' => 'Roles',
             'route'  => 'admin.roles.index',

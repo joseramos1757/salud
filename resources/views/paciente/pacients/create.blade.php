@@ -6,8 +6,10 @@
 
             <!-- Formulario -->
 
-            {!! Form::open(['route' => 'paciente.pacients.store', 'class' => 'bg-white px-8 pt-6 pb-8 mb-4']) !!}
-            @csrf
+            <form wire:submit.prevent="createUser" class="bg-white px-8 pt-6 pb-8 mb-4">
+                <!-- Aquí van los campos del formulario -->
+           
+              @csrf
             <div class="mb-4">
                 <div class="mt-2 mb-6 font-semibold text-3xl text-gray-800 leading-tight w-full justify-center">
                     <center>
@@ -17,113 +19,94 @@
 
                 <div class="grid grid-flow-row sm:grid-flow-col gap-3 ">
                     <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('ci', 'CARNET DE IDENTIDAD:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('ci', null, ['class' => 'w-full mt-1 p-2 border rounded-md', 'required']) !!}
+                        <label for="ci" class="block text-sm font-semibold text-gray-600">CARNET DE IDENTIDAD:</label>
+                        <input type="text" id="ci" class="w-full mt-1 p-2 border rounded-md" required wire:model.lazy="ci">
                         @error('ci')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
                     </div>
-
+                
                     <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('paterno', 'NOMBRE(S):', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('nombre', null, ['class' => 'w-full mt-1 p-2 border rounded-md uppercase-input', 'required']) !!}
-
+                        <label for="nombre" class="block text-sm font-semibold text-gray-600">NOMBRE(S):</label>
+                        <input type="text" id="nombre" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model.lazy="nombre">
                     </div>
-
+                
                     <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('paterno', 'APELLIDO PATERNO:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('paterno', null, ['class' => 'w-full mt-1 p-2 border rounded-md uppercase-input', 'required']) !!}
-
+                        <label for="paterno" class="block text-sm font-semibold text-gray-600">APELLIDO PATERNO:</label>
+                        <input type="text" id="paterno" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model.lazy="paterno">
                     </div>
-
+                
                     <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('materno', 'APELLIDO MATERNO:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('materno', null, ['class' => 'w-full mt-1 p-2 border rounded-md uppercase-input']) !!}
+                        <label for="materno" class="block text-sm font-semibold text-gray-600">APELLIDO MATERNO:</label>
+                        <input type="text" id="materno" class="w-full mt-1 p-2 border rounded-md uppercase-input" wire:model.lazy="materno">
                     </div>
-
+                
                     <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('celular', 'CELULAR:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('celular', null, ['class' => 'w-full mt-1 p-2 border rounded-md', 'required']) !!}
-
+                        <label for="celular" class="block text-sm font-semibold text-gray-600">CELULAR:</label>
+                        <input type="text" id="celular" class="w-full mt-1 p-2 border rounded-md" required wire:model.lazy="celular">
                         @error('celular')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
-            </div>
-
-            <div class="mb-4">
-                <div class="grid grid-flow-row sm:grid-flow-col gap-3">
-                    <div class="sm:col-span-8 justify-center">
-                        {!! Form::label('direccion', 'DIRECCIÓN:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('direccion', null, ['class' => 'w-full mt-1 p-2 border rounded-md uppercase-input', 'required']) !!}
-
-                    </div>
-
-
-                    <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('estadocivil', 'ESTADO CIVIL:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::select(
-                            'estadocivil',
-                            [
-                                '' => 'SELECCIONE UNA OPCIÓN',
-                                'SOLTERO' => 'SOLTERO (A)',
-                                'CASADO' => 'CASADO (A)',
-                                'DIVORCIADO' => 'DIVORCIADO (A)',
-                                'VIUDO' => 'VIUDO (A)',
-                            ],
-                            null,
-                            ['class' => 'w-full mt-1 p-2 border rounded-md', 'required'],
-                        ) !!}
-
-                    </div>
-
-
-                    <div class="mb-3">
-                        {!! Form::label(null, 'SEXO:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        <div class="mt-1">
-                            <label class="inline-flex items-center">
-                                {!! Form::radio('sexo', 'MASCULINO', false, ['class' => 'form-radio', 'required']) !!}
-                                <span class="ml-1 text-sm">MASCULINO</span>
-                            </label>
-                            <label class="inline-flex items-center ml-6">
-                                {!! Form::radio('sexo', 'FEMENINO', false, ['class' => 'form-radio', 'required']) !!}
-                                <span class="ml-1 text-sm">FEMENINO</span>
-                            </label>
+                
+                <div class="mb-4">
+                    <div class="grid grid-flow-row sm:grid-flow-col gap-3">
+                        <div class="sm:col-span-8 justify-center">
+                            <label for="direccion" class="block text-sm font-semibold text-gray-600">DIRECCIÓN:</label>
+                            <input type="text" id="direccion" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model.lazy="direccion">
+                        </div>
+                
+                        <div class="sm:col-span-4 justify-center">
+                            <label for="estadocivil" class="block text-sm font-semibold text-gray-600">ESTADO CIVIL:</label>
+                            <select id="estadocivil" class="w-full mt-1 p-2 border rounded-md" required wire:model.lazy="estadocivil">
+                                <option value="">SELECCIONE UNA OPCIÓN</option>
+                                <option value="SOLTERO">SOLTERO (A)</option>
+                                <option value="CASADO">CASADO (A)</option>
+                                <option value="DIVORCIADO">DIVORCIADO (A)</option>
+                                <option value="VIUDO">VIUDO (A)</option>
+                            </select>
+                        </div>
+                
+                        <div class="mb-3">
+                            <label class="block text-sm font-semibold text-gray-600">SEXO:</label>
+                            <div class="mt-1">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" value="MASCULINO" required wire:model.lazy="sexo">
+                                    <span class="ml-1 text-sm">MASCULINO</span>
+                                </label>
+                                <label class="inline-flex items-center ml-6">
+                                    <input type="radio" class="form-radio" value="FEMENINO" required wire:model.lazy="sexo">
+                                    <span class="ml-1 text-sm">FEMENINO</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <div class="grid grid-flow-row sm:grid-flow-col gap-3">
-                    <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('fechanac', 'FECHA DE NACIMIENTO:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::date('fechanac', null, ['class' => 'w-full mt-1 p-2 border rounded-md', 'required']) !!}
-
-                    </div>
-
-                    <div class="sm:col-span-4 justify-center">
-                        {!! Form::label('ocupacion', 'OCUPACIÓN:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('ocupacion', null, ['class' => 'w-full mt-1 p-2 border rounded-md uppercase-input', 'required']) !!}
-
-                    </div>
-
-                    <div class="sm:col-span-8 justify-center">
-                        {!! Form::label('observaciones', 'OBSERVACIONES:', ['class' => 'block text-sm font-semibold text-gray-600']) !!}
-                        {!! Form::text('observaciones', null, ['class' => 'w-full mt-1 p-2 border rounded-md uppercase-input']) !!}
+               
+                <div class="mb-4">
+                    <div class="grid grid-flow-row sm:grid-flow-col gap-3">
+                        <div class="sm:col-span-4 justify-center">
+                            <label for="fechanac" class="block text-sm font-semibold text-gray-600">FECHA DE NACIMIENTO:</label>
+                            <input type="date" id="fechanac" class="w-full mt-1 p-2 border rounded-md" required wire:model.lazy="fechanac">
+                        </div>
+                
+                        <div class="sm:col-span-4 justify-center">
+                            <label for="ocupacion" class="block text-sm font-semibold text-gray-600">OCUPACIÓN:</label>
+                            <input type="text" id="ocupacion" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model.lazy="ocupacion">
+                        </div>
+                
+                        <div class="sm:col-span-8 justify-center">
+                            <label for="observaciones" class="block text-sm font-semibold text-gray-600">OBSERVACIONES:</label>
+                            <input type="text" id="observaciones" class="w-full mt-1 p-2 border rounded-md uppercase-input" wire:model.lazy="observaciones">
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="flex items-center mt-8">
-                {!! Form::submit('REGISTRAR PACIENTE', [
-                    'class' =>
-                        'bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
-                ]) !!}
-            </div>
-            {!! Form::close() !!}
+                
+                <div class="flex items-center mt-8">
+                    <button type="submit" class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">REGISTRAR PACIENTE</button>
+                </div>
+                
+        </form>
 
         </div>
 
