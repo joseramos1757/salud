@@ -132,7 +132,7 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => true,
+    'usermenu_image' => false,
     'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
@@ -294,7 +294,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -311,7 +311,8 @@ return [
         [
             'text'        => 'VOLVER AL SISTEMA',
             'route'         => 'register',
-            'icon'        => 'fas fa-chart-line',   
+            'icon'        => 'fas fa-chart-line',
+            'class'      => 'text-danger',   
         ],
         ['header' => 'MODULO DE USUARIOS'],
         [

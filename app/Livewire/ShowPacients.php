@@ -27,6 +27,8 @@ class ShowPacients extends Component
     public $title;
     public $search; 
     public $cant=5;
+    public $showModal = false; // Propiedad para controlar la visibilidad del modal
+
     public function crearPaciente(){
         //$this->clean();
        // Convierte la fecha de nacimiento a un objeto Carbon
@@ -69,6 +71,7 @@ class ShowPacients extends Component
      //MENSAJE DE GUARDADO  
         session()->flash('msg', 'EL PACIENTE ' . $this->nombre . ' ' . $this->paterno . ' HA SIDO REGISTRADO');
         //$this->clean();
+        $this->showModal = false;
     }       
     public function render()
     {
