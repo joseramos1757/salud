@@ -1,9 +1,7 @@
 <div>
     <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS"> 
         <x-slot:cardTools>
-            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                REGISTRAR PACIENTE NUEVO
-              </button>
+            <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> REGISTRAR PACIENTE NUEVO</a>
         </x-slot:cardTools>
         <x-table>
         <x-slot:thead>
@@ -86,9 +84,9 @@
 
 
     </div>
-    <x-crud-modal>
+    <x-modal/>
     
-        <div class="container mx-auto mt-2">
+        {{--<div class="container mx-auto mt-2">
             <form wire:submit="crearPaciente" class="bg-white px-8 pt-6 pb-8 mb-4">
                 <!-- Aquí van los campos del formulario -->
                 @csrf
@@ -186,9 +184,9 @@
                 </div>
     
             </form>
-        </div>
+        </div>--}}
         
-    </x-crud-modal> 
+    {{--</x-modal1>--}} 
 </div>
 
 

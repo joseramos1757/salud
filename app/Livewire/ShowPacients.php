@@ -12,6 +12,7 @@ class ShowPacients extends Component
 {
     //para la paginacion
     use WithPagination;
+    //propiedades modelo
     public $ci;
     public $nombre;
     public $paterno;
@@ -23,11 +24,10 @@ class ShowPacients extends Component
     public $fechanac;
     public $ocupacion;
     public $observaciones;
-
     public $title;
     public $search; 
     public $cant=5;
-    public $showModal = false; // Propiedad para controlar la visibilidad del modal
+   // public $showModal = false; // Propiedad para controlar la visibilidad del modal
 
     public function crearPaciente(){
         //$this->clean();
@@ -71,7 +71,7 @@ class ShowPacients extends Component
      //MENSAJE DE GUARDADO  
         session()->flash('msg', 'EL PACIENTE ' . $this->nombre . ' ' . $this->paterno . ' HA SIDO REGISTRADO');
         //$this->clean();
-        $this->showModal = false;
+        //$this->showModal = false;
     }       
     public function render()
     {
