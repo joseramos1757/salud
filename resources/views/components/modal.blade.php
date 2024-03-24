@@ -1,6 +1,7 @@
 @props(['modalTitle'=>'','modalId'=>'','modalSize'])
 <!-- Modal -->
-<div class="text-white modal fade" id="{{$modalId}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div wire:ignore.self class=" text-white modal fade" id="{{$modalId}}" tabindex="-1" aria-labelledby="exampleModalLabel" 
+      aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header bg-blue-700">
@@ -16,4 +17,4 @@
         </div>--}}
       </div>
     </div>
-  </div>
+</div>

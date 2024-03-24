@@ -1,5 +1,5 @@
 <div>
-    <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS"> 
+    <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS({{$this->pacientCount}})"> 
         <x-slot:cardTools>
             <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPaciente"> REGISTRAR PACIENTE NUEVO</a>
         </x-slot:cardTools>
@@ -90,11 +90,10 @@
         <form wire:submit="crearPaciente" class="bg-white px-8 pt-6 pb-8 mb-4">
             <!-- Aquí van los campos del formulario -->
             @csrf
-            <div class="mb-4">
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="ci" class="block text-sm font-semibold text-gray-900">CARNET DE IDENTIDAD:</label>
-                        <input type="text" id="ci" name="ci" class="form-control mt-1" required wire:model="ci">
+                        <input type="text" id="ci" name="ci" class="form-control mt-1"  wire:model="ci" placeholder="Ingrese el numero de carnet">
                         @error('ci')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -102,52 +101,64 @@
         
                     <div class="col-md-3 mb-3">
                         <label for="nombre" class="block text-sm font-semibold text-gray-900">NOMBRE(S):</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control mt-1" required wire:model="nombre">
+                        <input type="text" id="nombre" name="nombre" class="form-control mt-1" wire:model="nombre" placeholder="Ingrese el nombre">
+                        @error('nombre')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
         
                     <div class="col-md-3 mb-3">
                         <label for="paterno" class="block text-sm font-semibold text-gray-900">APELLIDO PATERNO:</label>
-                        <input type="text" id="paterno" class="form-control mt-1" required wire:model="paterno">
+                        <input type="text" id="paterno" class="form-control mt-1" wire:model="paterno" placeholder="Ingrese el apellido paterno">
+                        @error('paterno')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
         
                     <div class="col-md-3 mb-3">
                         <label for="materno" class="block text-sm font-semibold text-gray-900">APELLIDO MATERNO:</label>
-                        <input type="text" id="materno" class="form-control mt-1" wire:model="materno">
+                        <input type="text" id="materno" class="form-control mt-1" wire:model="materno" placeholder="Ingrese el apellido materno">
+                        @error('materno')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
         
                
                 </div>
 
-                <div class="mb-4">
+              
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label class="block text-sm font-semibold text-gray-900">SEXO:</label>
                             <div>
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" value="MASCULINO" name="sexo" required wire:model="sexo">
-                                    <span class="ml-1 text-sm">MASCULINO</span>
+                                    <span class="ml-1 text-sm  text-gray-900">MASCULINO</span>
                                 </label>
                                 <label class="form-check-label ml-3">
                                     <input type="radio" class="form-check-input" value="FEMENINO" name="sexo" required wire:model="sexo">
-                                    <span class="ml-1 text-sm">FEMENINO</span>
+                                    <span class="ml-1 text-sm  text-gray-900">FEMENINO</span>
                                 </label>
                             </div>
                         </div>                        
                         <div class="col-md-3 mb-3">
                             <label for="celular" class="block text-sm font-semibold text-gray-900">CELULAR:</label>
-                            <input type="text" id="celular" class="form-control mt-1" required wire:model="celular">
+                            <input type="text" id="celular" class="form-control mt-1"  wire:model="celular" placeholder="Ingrese el numero de celular">
                             @error('celular')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="direccion" class="block text-sm font-semibold text-gray-900">DIRECCIÓN:</label>
-                            <input type="text" id="direccion" class="form-control mt-1" required wire:model="direccion">
+                            <input type="text" id="direccion" class="form-control mt-1"  wire:model="direccion" placeholder="Ingrese la dirección">
+                            @error('direccion')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
         
                         <div class="col-md-3 mb-3">
                             <label for="estadocivil" class="block text-sm font-semibold text-gray-900">ESTADO CIVIL:</label>
-                            <select id="estadocivil" class="form-control mt-1" required wire:model="estadocivil">
+                            <select id="estadocivil" class="form-control mt-1"  wire:model="estadocivil" placeholder="">
                                 <option value="">SELECCIONE UNA OPCIÓN</option>
                                 <option value="SOLTERO">SOLTERO (A)</option>
                                 <option value="CASADO">CASADO (A)</option>
@@ -157,20 +168,26 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="fechanac" class="block text-sm font-semibold text-gray-900">FECHA DE NACIMIENTO:</label>
-                            <input type="date" id="fechanac" class="form-control mt-1" required wire:model="fechanac">
+                            <input type="date" id="fechanac" class="form-control mt-1"  wire:model="fechanac" placeholder="">
                         </div>
         
                         <div class="col-md-3 mb-3">
                             <label for="ocupacion" class="block text-sm font-semibold text-gray-900">OCUPACIÓN:</label>
-                            <input type="text" id="ocupacion" class="form-control mt-1" required wire:model="ocupacion">
+                            <input type="text" id="ocupacion" class="form-control mt-1"  wire:model="ocupacion" placeholder="Ingrese la ocupación">
+                            @error('ocupacion')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="observaciones" class="block text-sm font-semibold text-gray-900">OBSERVACIONES:</label>
-                            <input type="text" id="observaciones" class="form-control mt-1" wire:model="observaciones">
+                            <input type="text" id="observaciones" class="form-control mt-1" wire:model="observaciones" placeholder="Ingrese las observaciones">
+                            @error('observaciones')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                 
                     </div>
-                </div>
+               
            
                 <div class="flex items-center justify-end mt-8">
                     <button class="btn btn-success">REGISTRAR PACIENTE</button>

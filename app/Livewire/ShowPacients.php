@@ -12,6 +12,8 @@ class ShowPacients extends Component
 {
     //para la paginacion
     use WithPagination;
+
+    public $pacientCount=0;
     //propiedades modelo
     public $ci;
     public $nombre;
@@ -29,6 +31,16 @@ class ShowPacients extends Component
     public $cant=5;
    // public $showModal = false; // Propiedad para controlar la visibilidad del modal
 
+
+//crear pacientes
+    public function store(){
+
+        $rules = [
+            'ci'=>'required|unique:pacientes|numeric',
+        ];
+    
+        $this->validate($rules);
+    }
     public function crearPaciente(){
         //$this->clean();
        // Convierte la fecha de nacimiento a un objeto Carbon
@@ -80,18 +92,15 @@ class ShowPacients extends Component
                     ->orWhere('ci', 'like', '%' . $this->search . '%')
                     ->orderBy('id', 'desc')
                     ->paginate($this->cant);
-        $pacientCount=Paciente::count();
-        //$pacient = Paciente::where('nombre','like','%'.$this->search.'%')->get();
-       // $pacient = Paciente::where('ci', 'like', '%' . $this->search . '%')
-        //->orWhere('nombre', 'like', '%' . $this->search . '%')
-        //  ->get();
-        //$pacient=Paciente::where('ci','like','%' . $this->search . '%')
-        //->orWhere('nombre','like','%' . $this->search . '%')->get();
+
         $this->title ='CANTIDAD DE PACIENTES';
         return view('livewire.show-pacients',compact('pacient'),[
             'title'=>$this->title,
-            'pacientCount'=>$pacientCount
         ]);
+    }
+
+    public function mount(){
+        $this->pacientCount=Paciente::count();
     }
 
         // Metodo encargado de la limpieza
