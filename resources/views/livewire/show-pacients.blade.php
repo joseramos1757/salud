@@ -1,7 +1,7 @@
 <div>
     <x-card cardTitle="LISTA DE PACIENTES REGISTRADOS"> 
         <x-slot:cardTools>
-            <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> REGISTRAR PACIENTE NUEVO</a>
+            <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPaciente"> REGISTRAR PACIENTE NUEVO</a>
         </x-slot:cardTools>
         <x-table>
         <x-slot:thead>
@@ -84,109 +84,104 @@
 
 
     </div>
-    <x-modal/>
+    <x-modal modalId="modalPaciente" modalTitle="REGISTRAR PACIENTE NUEVO">
     
-        {{--<div class="container mx-auto mt-2">
-            <form wire:submit="crearPaciente" class="bg-white px-8 pt-6 pb-8 mb-4">
-                <!-- Aquí van los campos del formulario -->
-                @csrf
-                <div class="mb-4">
-                    <div class="grid grid-flow-row sm:grid-flow-col gap-3 ">
-                        <div class="sm:col-span-4 justify-center">
-                            <label for="ci" class="block text-sm font-semibold text-gray-600">CARNET DE IDENTIDAD:</label>
-                            <input type="text" id="ci" class="w-full mt-1 p-2 border rounded-md" required wire:model="ci">
-                            @error('ci')
-                                <span class="text-red-500">{{ $message }}</span>
-                            @enderror
-                        </div>
-    
-                        <div class="sm:col-span-4 justify-center">
-                            <label for="nombre" class="block text-sm font-semibold text-gray-600">NOMBRE(S):</label>
-                            <input type="text" id="nombre" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model="nombre">
-                        </div>
-    
-                        <div class="sm:col-span-4 justify-center">
-                            <label for="paterno" class="block text-sm font-semibold text-gray-600">APELLIDO PATERNO:</label>
-                            <input type="text" id="paterno" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model="paterno">
-                        </div>
-    
-                        <div class="sm:col-span-4 justify-center">
-                            <label for="materno" class="block text-sm font-semibold text-gray-600">APELLIDO MATERNO:</label>
-                            <input type="text" id="materno" class="w-full mt-1 p-2 border rounded-md uppercase-input" wire:model="materno">
-                        </div>
-    
-                        <div class="sm:col-span-4 justify-center">
-                            <label for="celular" class="block text-sm font-semibold text-gray-600">CELULAR:</label>
-                            <input type="text" id="celular" class="w-full mt-1 p-2 border rounded-md" required wire:model="celular">
-                            @error('celular')
-                                <span class="text-red-700">{{ $message }}</span>
-                            @enderror
-                        </div>
+     
+        <form wire:submit="crearPaciente" class="bg-white px-8 pt-6 pb-8 mb-4">
+            <!-- Aquí van los campos del formulario -->
+            @csrf
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="ci" class="block text-sm font-semibold text-gray-900">CARNET DE IDENTIDAD:</label>
+                        <input type="text" id="ci" name="ci" class="form-control mt-1" required wire:model="ci">
+                        @error('ci')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-    
-                    <div class="mb-4">
-                        <div class="grid grid-flow-row sm:grid-flow-col gap-3">
-                            <div class="sm:col-span-8 justify-center">
-                                <label for="direccion" class="block text-sm font-semibold text-gray-600">DIRECCIÓN:</label>
-                                <input type="text" id="direccion" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model="direccion">
-                            </div>
-    
-                            <div class="sm:col-span-4 justify-center">
-                                <label for="estadocivil" class="block text-sm font-semibold text-gray-600">ESTADO CIVIL:</label>
-                                <select id="estadocivil" class="w-full mt-1 p-2 border rounded-md" required wire:model="estadocivil">
-                                    <option value="">SELECCIONE UNA OPCIÓN</option>
-                                    <option value="SOLTERO">SOLTERO (A)</option>
-                                    <option value="CASADO">CASADO (A)</option>
-                                    <option value="DIVORCIADO">DIVORCIADO (A)</option>
-                                    <option value="VIUDO">VIUDO (A)</option>
-                                </select>
-                            </div>
-    
-                            <div class="mb-3">
-                                <label class="block text-sm font-semibold text-gray-600">SEXO:</label>
-                                <div class="mt-1">
-                                    <label class="inline-flex items-center">
-                                        <input type="radio" class="form-radio" value="MASCULINO" required wire:model="sexo">
-                                        <span class="ml-1 text-sm">MASCULINO</span>
-                                    </label>
-                                    <label class="inline-flex items-center ml-6">
-                                        <input type="radio" class="form-radio" value="FEMENINO" required wire:model="sexo">
-                                        <span class="ml-1 text-sm">FEMENINO</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="mb-4">
-                        <div class="grid grid-flow-row sm:grid-flow-col gap-3">
-                            <div class="sm:col-span-4 justify-center">
-                                <label for="fechanac" class="block text-sm font-semibold text-gray-600">FECHA DE NACIMIENTO:</label>
-                                <input type="date" id="fechanac" class="w-full mt-1 p-2 border rounded-md" required wire:model="fechanac">
-                            </div>
-    
-                            <div class="sm:col-span-4 justify-center">
-                                <label for="ocupacion" class="block text-sm font-semibold text-gray-600">OCUPACIÓN:</label>
-                                <input type="text" id="ocupacion" class="w-full mt-1 p-2 border rounded-md uppercase-input" required wire:model="ocupacion">
-                            </div>
-    
-                            <div class="sm:col-span-8 justify-center">
-                                <label for="observaciones" class="block text-sm font-semibold text-gray-600">OBSERVACIONES:</label>
-                                <input type="text" id="observaciones" class="w-full mt-1 p-2 border rounded-md uppercase-input" wire:model="observaciones">
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="flex items-center mt-8">
-                        <button  class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">REGISTRAR PACIENTE</button>
-                    </div>
-    
-                </div>
-    
-            </form>
-        </div>--}}
         
-    {{--</x-modal1>--}} 
+                    <div class="col-md-3 mb-3">
+                        <label for="nombre" class="block text-sm font-semibold text-gray-900">NOMBRE(S):</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control mt-1" required wire:model="nombre">
+                    </div>
+        
+                    <div class="col-md-3 mb-3">
+                        <label for="paterno" class="block text-sm font-semibold text-gray-900">APELLIDO PATERNO:</label>
+                        <input type="text" id="paterno" class="form-control mt-1" required wire:model="paterno">
+                    </div>
+        
+                    <div class="col-md-3 mb-3">
+                        <label for="materno" class="block text-sm font-semibold text-gray-900">APELLIDO MATERNO:</label>
+                        <input type="text" id="materno" class="form-control mt-1" wire:model="materno">
+                    </div>
+        
+               
+                </div>
+
+                <div class="mb-4">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="block text-sm font-semibold text-gray-900">SEXO:</label>
+                            <div>
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" value="MASCULINO" name="sexo" required wire:model="sexo">
+                                    <span class="ml-1 text-sm">MASCULINO</span>
+                                </label>
+                                <label class="form-check-label ml-3">
+                                    <input type="radio" class="form-check-input" value="FEMENINO" name="sexo" required wire:model="sexo">
+                                    <span class="ml-1 text-sm">FEMENINO</span>
+                                </label>
+                            </div>
+                        </div>                        
+                        <div class="col-md-3 mb-3">
+                            <label for="celular" class="block text-sm font-semibold text-gray-900">CELULAR:</label>
+                            <input type="text" id="celular" class="form-control mt-1" required wire:model="celular">
+                            @error('celular')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="direccion" class="block text-sm font-semibold text-gray-900">DIRECCIÓN:</label>
+                            <input type="text" id="direccion" class="form-control mt-1" required wire:model="direccion">
+                        </div>
+        
+                        <div class="col-md-3 mb-3">
+                            <label for="estadocivil" class="block text-sm font-semibold text-gray-900">ESTADO CIVIL:</label>
+                            <select id="estadocivil" class="form-control mt-1" required wire:model="estadocivil">
+                                <option value="">SELECCIONE UNA OPCIÓN</option>
+                                <option value="SOLTERO">SOLTERO (A)</option>
+                                <option value="CASADO">CASADO (A)</option>
+                                <option value="DIVORCIADO">DIVORCIADO (A)</option>
+                                <option value="VIUDO">VIUDO (A)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="fechanac" class="block text-sm font-semibold text-gray-900">FECHA DE NACIMIENTO:</label>
+                            <input type="date" id="fechanac" class="form-control mt-1" required wire:model="fechanac">
+                        </div>
+        
+                        <div class="col-md-3 mb-3">
+                            <label for="ocupacion" class="block text-sm font-semibold text-gray-900">OCUPACIÓN:</label>
+                            <input type="text" id="ocupacion" class="form-control mt-1" required wire:model="ocupacion">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="observaciones" class="block text-sm font-semibold text-gray-900">OBSERVACIONES:</label>
+                            <input type="text" id="observaciones" class="form-control mt-1" wire:model="observaciones">
+                        </div>
+                
+                    </div>
+                </div>
+           
+                <div class="flex items-center justify-end mt-8">
+                    <button class="btn btn-success">REGISTRAR PACIENTE</button>
+                </div>
+                
+            </div>
+        </form>
+        
+        
+        
+    </x-modal>
 </div>
 
 
