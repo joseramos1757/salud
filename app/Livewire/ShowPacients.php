@@ -8,6 +8,8 @@ use JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter;
 use Carbon\Carbon;
 //para la paginacion
 use Livewire\WithPagination;
+use RealRashid\SweetAlert\Facades\Alert;
+use Livewire\Attributes\On;
 class ShowPacients extends Component
 {
     //para la paginacion
@@ -21,8 +23,8 @@ class ShowPacients extends Component
     public $materno;
     public $celular;
     public $direccion;
-    public $estadocivil;
-    public $sexo;
+    public $estadocivil='';
+    public $sexo='';
     public $fechanac;
     public $ocupacion;
     public $observaciones;
@@ -31,26 +33,20 @@ class ShowPacients extends Component
     public $cant=5;
    // public $showModal = false; // Propiedad para controlar la visibilidad del modal
 
+   //para edicion 
+   public $Id;
 
 //crear pacientes
     public function store(){
 
-        $rules = [
-            'ci'=>'required|unique:pacientes|numeric',
-        ];
-    
-        $this->validate($rules);
-    }
-    public function crearPaciente(){
-        //$this->clean();
-       // Convierte la fecha de nacimiento a un objeto Carbon
+    // Convierte la fecha de nacimiento a un objeto Carbon
     $fechaNacimiento = Carbon::createFromFormat('Y-m-d', $this->fechanac);
 
     // Calcula la edad
     $edad = $fechaNacimiento->diffInYears(Carbon::now());
 
-  
-          $this-> validate([
+
+        $rules = [
             'ci'=>'required|unique:pacientes|numeric',
             'nombre'=>'required',
             'paterno'=>'required',
@@ -63,30 +59,43 @@ class ShowPacients extends Component
             'fechanac'=>'required',
             'direccion'=>'required',
             'observaciones'=>'nullable'
+        ];
+    
+        $this->validate($rules);
 
-        ]);
-       Paciente::create([
-        'ci' => $this->ci,
-        'nombre' => $this->nombre,
-        'paterno' => $this->paterno,
-        'materno' => $this->materno,
-        'celular' => $this->celular,
-        'direccion' => $this->direccion,
-        'estadocivil' => $this->estadocivil,
-        'sexo' => $this->sexo,
-        'fechanac' => $this->fechanac,
-        'ocupacion' => $this->ocupacion,
-        'edad' => $edad, // Guarda la edad en la base de datos
-        'observaciones' => $this->observaciones, // Guarda la edad en la base de datos
-       ]);
+        $paciente=new Paciente();
+        $paciente->ci = $this->ci;
+        $paciente->nombre = $this->nombre;
+        $paciente->paterno = $this->paterno;
+        $paciente->materno = $this->materno;
+        $paciente->celular = $this->celular;
+        $paciente->direccion = $this->direccion;
+        $paciente->estadocivil = $this->estadocivil;
+        $paciente->sexo = $this->sexo;
+        $paciente->fechanac = $this->fechanac;
+        $paciente->ocupacion = $this->ocupacion;
+        $paciente->edad = $edad; // Guarda la edad en la base de datos
+        $paciente->observaciones = $this->observaciones; // Guarda la edad en la base de datos
+        $paciente->save();
+        //sirve para cerrar el modal enviando el id del modal
+        $this->dispatch('close-modal','modalPaciente');
 
-     //MENSAJE DE GUARDADO  
-        session()->flash('msg', 'EL PACIENTE ' . $this->nombre . ' ' . $this->paterno . ' HA SIDO REGISTRADO');
-        //$this->clean();
-        //$this->showModal = false;
-    }       
+        Alert::success('Éxito', 'Paciente registrado correctamente');
+
+        //sirve para mostrar el mensaje 
+        //$this->dispatch('msg','PACIENTE REGISTRADO CORRECTAMENTE');
+        //para reniciar los datos del formulario 
+        return redirect()->route('paciente.pacients.index');
+      
+    }
+
+
     public function render()
     {
+        if($this->search!=''){
+            $this->resetPage();
+        }
+        $this->pacientCount=Paciente::count();
         
         $pacient = Paciente::where('nombre','like','%'.$this->search.'%')
                     ->orWhere('ci', 'like', '%' . $this->search . '%')
@@ -99,13 +108,39 @@ class ShowPacients extends Component
         ]);
     }
 
-    public function mount(){
-        $this->pacientCount=Paciente::count();
+    public function edit(Paciente $paciente){
+        dump($this->Id);
+ 
+        $this->ci=$paciente->ci;
+        $this->nombre=$paciente->nombre;
+        $this->paterno=$paciente->paterno;
+        $this->materno=$paciente->materno;
+        $this->celular=$paciente->celular;
+        $this->direccion=$paciente->direccion;
+        $this->estadocivil=$paciente->estadocivil;
+        $this->sexo=$paciente->sexo;
+        $this->fechanac=$paciente->fechanac;
+        $this->ocupacion=$paciente->ocupacion;
+        $this->observaciones=$paciente->observaciones;
+
+         //sirve para cerrar el modal enviando el id del modal
+         $this->dispatch('open-modal','modalPaciente');
+
+       
+        //dump($paciente);
+
     }
 
-        // Metodo encargado de la limpieza
-        //public function clean(){
-         //  $this->reset(['ci','nombre','paterno','materno','direccion','celular','estadocivil','sexo','ocupacion','observaciones','search']);
-         //  $this->resetErrorBag();
-       // }
+   /* #[On('destroyPacient')]
+    public function destroy($id){
+        
+        $pacient = Paciente::findOrfail($id);
+
+
+        $pacient->delete();
+
+        $this->dispatch('msg','Usuario eliminado correctamente.');
+    }*/
+    
+    
 }

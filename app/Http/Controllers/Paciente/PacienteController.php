@@ -172,9 +172,16 @@ class PacienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Paciente $pacient)
     {
-        //
+            // Aquí puedes añadir la lógica para eliminar el registro
+             // Por ejemplo:
+             $pacient->delete();
+             // Mostrar la alerta SweetAlert
+             Alert::success('Elminado!', 'El Paciente ha sido eliminado correctamente');
+
+             // Redirigir a la página de índice o a donde desees
+             return redirect()->route('paciente.pacients.index');
     }
     
     public function asignarMedico(Request $request)
