@@ -18,7 +18,7 @@
                             <a href="{{route('paciente.pacients.index')}}" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold ">PACIENTES</a>
                             @endcan
                             @can('ACCESO A ANAMNESIS')
-                            <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">ANAMNESIS</a>
+                            <a href="{{route('historial.historials.index')}}" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">ANAMNESIS</a>
                             @endcan
                             @can('ACCESO A HISTORIAL CLINICO')
                             <a href="#" class="text-white hover:bg-blue-950 hover:text-white block rounded-md px-3 py-2 text-base font-sans font-bold">HISTORIAL CLÍNICO</a>

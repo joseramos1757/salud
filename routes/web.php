@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Paciente\PacienteController;
 use App\Http\Controllers\ReconsultaController;
 use App\Http\Controllers\Admin\MedicController;
+use App\Http\Controllers\Historial\HistorialController;
 use App\Livewire\ShowPacients;
 use Livewire\Livewire;
 /*
@@ -35,7 +36,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('pacients',[PacienteController::class,'index'])->name('paciente.home');
 Route::resource('pacients', PacienteController::class)->names('paciente.pacients')->middleware(['can:ACCESO A PACIENTES']);
-
+Route::get('historials',[HistorialController::class,'index'])->name('historial.home');
+Route::resource('historials', HistorialController::class)->names('historial.historials')->middleware(['can:ACCESO A HISTORIAL CLINICO']);
 
 Route::get('/reconsulta/{paciente}', [ReconsultaController::class, 'mostrarFormulario'])->name('reconsulta.formulario');
 Route::post('/reconsulta/{paciente}', [ReconsultaController::class, 'guardarReconsulta'])->name('reconsulta.guardar');
