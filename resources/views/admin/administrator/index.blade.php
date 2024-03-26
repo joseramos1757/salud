@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 @section('title', 'Dashboard')
 
-
+@section('plugins.SweetAlert',true)
 @section('content_header')
     <h1>LISTA DE ADMINISTRADORES</h1>
 @stop
@@ -13,6 +13,11 @@
                     <a href="{{route('admin.administrators.create')}}" class="btn btn-primary">AGREGAR ADMINISTRADOR</a>
                 </div>
             <div class="card-body">
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
                 <table class="table table-striped table-responsive">
                     <thead class="text-center">
                         <tr>
@@ -43,10 +48,10 @@
                                     <td width="10px"><a href="{{route('admin.administrators.edit',$administrator)}}" class="btn btn-primary btn-sm">EDITAR</a>
                                     </td>
                                     <td width="10px">
-                                        <form action="{{route('admin.administrators.destroy',$administrator)}}" method="POST">
+                                        <form id="delete-form-{{ $administrator->id }}" action="{{ route('admin.administrators.destroy', $administrator) }}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
+                                            <button type="button" onclick="confirmDelete({{ $administrator->id }})" class="btn btn-danger btn-sm">ELIMINAR</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -58,3 +63,25 @@
             </div>
         </div>
 @stop
+
+
+@section('js')
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarlo'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+</script>
+@endsection
